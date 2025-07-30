@@ -1,14 +1,30 @@
 import fastify from "fastify";
+import { knex } from "./database";
+import { env } from "./env";
+// import crypto from "node:crypto";
 
 const app = fastify();
 
-app.get("/hello", () => {
-  return { message: "Hello, Juliano!" };
+app.get("/hello", async () => {
+  // const transaction = await knex("transactions")
+  //   .insert({
+  //     id: crypto.randomUUID(),
+  //     title: "Transação de teste",
+  //     amount: 1000,
+  //   })
+  //   .returning("*");
+
+  // return transaction;
+  const transactions = await knex("transactions")
+    .where("amount", 1000)
+    .select("*");
+
+  return transactions;
 });
 
 app
   .listen({
-    port: 3333,
+    port: env.PORT,
   })
   .then(() => {
     console.log("Server is running on http://localhost:3333");
