@@ -1,8 +1,10 @@
 # Dependencies
 node_modules/
+package-lock.json
 
 # Database
-db/*.db
+*.db
+/db/*.db
 
 # Environment variables
 .env
